@@ -86,7 +86,8 @@ class LocationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $location = Location::findOrFail($id); //In case the id is not found
+        return view('locations.edit', compact('location')); 
     }
 
     /**
@@ -98,7 +99,15 @@ class LocationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //update a record
+        $loc = Location::findOrFail($id); //In case the id is not found
+        $this->validate($request, ['location'=>'required|max:255']);
+
+        $loc->location = $request->get('location');
+        $loc->note = $request->get('note'); 
+        $loc->save();
+
+        return redirect()->route('locations.index')->with('message', 'Location Updated.');
     }
 
     /**
@@ -109,6 +118,10 @@ class LocationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //delete a record
+        $loc = Location::findOrFail($id); //In case the id is not found
+        $loc->delete();
+
+        return redirect()->route('locations.index')->with('message', 'Location Deleted.');
     }
 }
