@@ -14,7 +14,13 @@ class LocationController extends Controller
      */
     public function index()
     {
-        //
+        //this is the home page of Location 
+        //$location = Location::all();  //retrieve all records
+
+        //Order by will display the latest location entries first, in desc order
+        $location = Location::orderBy('id', 'desc')->paginate(6);  //retrieve records in paginations format, 3 per page.
+
+        return view('locations.index')->with('locations', $location);
     }
 
     /**
@@ -37,7 +43,22 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         //validate the form date, and make this field required and set up max length to 255 varchar
+         $this->validate($request, ['location'=>'required|max:255']);
+          
+         $location = new Location();
+         $location->location = $request->location;
+         $location->note = $request->note;
+         //$loc->create_user = $user->name;
+ 
+         //if insert is successful then we want to redirect to view to show to the user
+         if ($location->save()){
+             return redirect()->route('locations.show', $location->id);
+         }
+         else {
+             return redirect()->route('locations.create');
+         }
+         
     }
 
     /**
@@ -48,7 +69,13 @@ class LocationController extends Controller
      */
     public function show($id)
     {
-        //
+        //use the model to get 1 record from the database
+        //show the view and pass the record to the view
+        $location = Location::findOrFail($id); //In case the id is not found
+
+        //return the view with some info, first parameter is the name of the data
+        //we want to refer to. Second parameter is the actual data we want to pass into
+        return view('locations.show')->with('location', $location); 
     }
 
     /**
