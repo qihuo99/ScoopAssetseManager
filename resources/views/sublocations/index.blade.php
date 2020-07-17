@@ -8,17 +8,17 @@
         </div>
     @endif
     <div class="container">         
-        <h1>All Locations:</h1>
+        <h1>All Sublocations:</h1>
         <ul class="nav nav-list">
-            <li class="divider mr-lg-5"><a href="/locations/create" class="btn btn-primary" style="margin-top: 5px;">Add A New Location</a></li>
-            <li class="divider ml-lg-2"><a href="/sublocations/" class="btn btn-primary" style="margin-top: 5px;">Sublocation Home</a></li>
+            <li class="divider mr-lg-5"><a href="/sublocations/create" class="btn btn-primary" style="margin-top: 5px;">Add A New Sublocation</a></li>
         </ul>
         <hr />
         <table class="table table-striped table-bordered text-center table-hover table-sm ">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col" class="text-center align-middle">Id</td>
-                    <th scope="col" class="text-center align-middle">Location</td>
+                    <th scope="col" class="text-center align-middle">Location ID</td>
+                    <th scope="col" class="text-center align-middle">Sublocation</td>
                     <th scope="col" class="text-center align-middle">Note</td>
                     <th scope="col" class="text-center align-middle">Create Date</td>
                     <th scope="col" class="text-center align-middle">View Details</td>
@@ -28,36 +28,36 @@
             </thead>
             </thead>
             <tbody>
-                @foreach ($locations as $location)
+                @foreach ($sublocations as $sublocation)
                 <tr>
-                    <th scope="row" class="text-center align-middle">{{ $location->id }}</td>
-                    <td>{{ $location->location }}</td>
-                    <td>{{ $location->note }}</td>
-                    <td>{{ $location->created_at}}</td>
-                    <td><a href="{{ route('locations.show', $location->id) }}" class="btn btn-primary m-1">View Details</a></td>
-                    <td><a href="{{ route('locations.edit', $location->id) }}" class="btn btn-primary m-1">Edit</a></td>
+                    <th scope="row" class="text-center align-middle">{{ $sublocation->id }}</td>
+                    <td>{{ $sublocation->location->location }}</td>
+                    <td>{{ $sublocation->sublocation }}</td>
+                    <td>{{ $sublocation->note }}</td>
+                    <td>{{ $sublocation->created_at}}</td>
+                    <td><a href="{{ route('sublocations.show', $sublocation->id) }}" class="btn btn-primary m-2">View Details</a></td>
+                    <td><a href="{{ route('sublocations.edit', $sublocation->id) }}" class="btn btn-primary m-2">Edit</a></td>
                     <td>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary m-1" data-toggle="modal" data-target="#exampleModalCenter{{ $location->id }}">
+                        <button type="button" class="btn btn-primary m-2" data-toggle="modal" data-target="#exampleModalCenter{{ $sublocation->id }}">
                         Delete
                         </button>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="exampleModalCenter{{ $location->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal fade" id="exampleModalCenter{{ $sublocation->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
-                            
-                                <form action="{{ route('locations.destroy', $location->id) }}" method="POST">                               
+                                <form action="{{ route('sublocations.destroy', $sublocation->id) }}" method="POST">                               
                                     @method('DELETE')
                                     @csrf
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle">Delete Selected Location:</h5>
+                                            <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">Delete {{ $sublocation->location->location }} - {{ $sublocation->sublocation }} :</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <div class="modal-body">
-                                            Are you sure?
+                                        <div class="modal-body font-weight-bold text-danger">
+                                            Are you sure you want to delete {{ $sublocation->location->location }} - {{ $sublocation->sublocation }} ?
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -73,7 +73,7 @@
             </tbody>
         </table>
         
-        {!! $locations->links() !!}  {{-- this is for adding pagination function --}}
+        {!! $sublocations->links() !!}  {{-- this is for adding pagination function --}}
     </div>
 
 @endsection

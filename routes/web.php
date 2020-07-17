@@ -21,5 +21,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('locations', 'LocationController');
+Route::resource('sublocations', 'SublocationController');
+
 Route::resource('brands', 'BrandController');
 Route::resource('categories', 'CategoryController');

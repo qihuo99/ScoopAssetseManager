@@ -53,7 +53,7 @@ class LocationController extends Controller
  
          //if insert is successful then we want to redirect to view to show to the user
          if ($location->save()){
-             return redirect()->route('locations.show', $location->id);
+             return redirect()->route('locations.index', $location->id);
          }
          else {
              return redirect()->route('locations.create');
@@ -123,5 +123,18 @@ class LocationController extends Controller
         $loc->delete();
 
         return redirect()->route('locations.index')->with('message', 'Location Deleted.');
+    }
+
+    public function sublocation()
+    {
+        //SELECT * FROM `addresses` WHERE user_id = ??
+        //id is the default PK, so the relation is automatically
+        //being figured out. Since this is User model, so FK, by
+        //default, should be user_id, if use a different name, then it
+        //won't work.
+        //return $this->hasOne('App\Location');
+        //return $this->hasOne(Location::class); //the two lines will do the same thing
+
+        return $this->hasOne(Location::class);
     }
 }
