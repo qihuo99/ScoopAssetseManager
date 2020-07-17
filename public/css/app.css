@@ -221,8 +221,12 @@ svg {
 
 table {
   border-collapse: collapse;
+  w-auto;
 }
-
+table tr {
+  height: 45px;
+  vertical-align: middle;
+}
 caption {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
@@ -234,7 +238,9 @@ caption {
 th {
   text-align: inherit;
 }
-
+.table > tbody > tr > td {
+  vertical-align: middle;
+}
 label {
   display: inline-block;
   margin-bottom: 0.5rem;

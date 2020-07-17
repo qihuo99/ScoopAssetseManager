@@ -14,30 +14,31 @@
          
         </ul>
         <hr />
-        <table class="table table-striped table-bordered text-center table-hover">
+        <table class="table table-striped table-bordered text-center table-hover table-sm ">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col" class="text-center">Id</td>
-                    <th scope="col" class="text-center">Location</td>
-                    <th scope="col" class="text-center">Note</td>
-                    <th scope="col" class="text-center">CreateDate</td>
-                    <th scope="col" class="text-center">View Details</td>
-                    <th scope="col" class="text-center">Edit</td>
-                    <th scope="col" class="text-center">Delete</td>
+                    <th scope="col" class="text-center align-middle">Id</td>
+                    <th scope="col" class="text-center align-middle">Location</td>
+                    <th scope="col" class="text-center align-middle">Note</td>
+                    <th scope="col" class="text-center align-middle">Create Date</td>
+                    <th scope="col" class="text-center align-middle">View Details</td>
+                    <th scope="col" class="text-center align-middle">Edit</td>
+                    <th scope="col" class="text-center align-middle">Delete</td>
                 </tr>
+            </thead>
             </thead>
             <tbody>
                 @foreach ($locations as $location)
                 <tr>
-                    <td>{{ $location->id }}</td>
+                    <th scope="row" class="text-center align-middle">{{ $location->id }}</td>
                     <td>{{ $location->location }}</td>
                     <td>{{ $location->note }}</td>
                     <td>{{ $location->created_at}}</td>
-                    <td><a href="{{ route('locations.show', $location->id) }}" class="btn btn-primary">View Details</a></td>
-                    <td><a href="{{ route('locations.edit', $location->id) }}" class="btn btn-primary">Edit</a></td>
+                    <td><a href="{{ route('locations.show', $location->id) }}" class="btn btn-primary m-1">View Details</a></td>
+                    <td><a href="{{ route('locations.edit', $location->id) }}" class="btn btn-primary m-1">Edit</a></td>
                     <td>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter{{ $location->id }}">
+                        <button type="button" class="btn btn-primary m-1" data-toggle="modal" data-target="#exampleModalCenter{{ $location->id }}">
                         Delete
                         </button>
 
