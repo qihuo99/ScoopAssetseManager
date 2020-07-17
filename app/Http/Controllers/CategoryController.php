@@ -87,7 +87,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::findOrFail($id); //In case the id is not found
+        return view('categories.edit', compact('category')); 
     }
 
     /**
@@ -99,7 +100,14 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category = Category::findOrFail($id); //In case the id is not found
+        $this->validate($request, ['category'=>'required|max:255']);
+
+        $category->category = $request->get('category');
+        $category->note = $request->get('note'); 
+        $category->save();
+
+        return redirect()->route('categories.index')->with('message', 'Category Updated.'); 
     }
 
     /**
@@ -110,6 +118,10 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //delete a category
+        $category = Category::findOrFail($id); //In case the id is not found
+        $category->delete();
+
+        return redirect()->route('categories.index')->with('message', 'Category Deleted.');
     }
 }
