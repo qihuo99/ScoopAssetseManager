@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Location;
+use Auth;
 
 class LocationController extends Controller
 {
@@ -49,7 +50,7 @@ class LocationController extends Controller
          $location = new Location();
          $location->location = $request->location;
          $location->note = $request->note;
-         //$loc->create_user = $user->name;
+         $location->create_user = Auth::user()->id;
  
          //if insert is successful then we want to redirect to view to show to the user
          if ($location->save()){
@@ -58,7 +59,6 @@ class LocationController extends Controller
          else {
              return redirect()->route('locations.create');
          }
-         
     }
 
     /**
@@ -105,6 +105,7 @@ class LocationController extends Controller
 
         $loc->location = $request->get('location');
         $loc->note = $request->get('note'); 
+        $loc->update_user = Auth::user()->id;
         $loc->save();
 
         return redirect()->route('locations.index')->with('message', 'Location Updated.');
@@ -137,4 +138,10 @@ class LocationController extends Controller
 
         return $this->hasOne(Location::class);
     }
+
+    public function sublocations()
+    {
+        return $this->hasMany(Sublocation::class);
+    }
+
 }

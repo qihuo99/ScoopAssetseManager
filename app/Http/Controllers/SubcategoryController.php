@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Subcategory;
+use Auth;
 
 class SubcategoryController extends Controller
 {
@@ -64,6 +65,7 @@ class SubcategoryController extends Controller
         $subcategory->category_id = $request->category_id;
         $subcategory->subcategory = $request->subcategory;
         $subcategory->note = $request->note;
+        $subcategory->create_user = Auth::user()->id;
 
         //if insert is successful then we want to redirect to view to show to the user
         if ($subcategory->save()){    
@@ -124,6 +126,7 @@ class SubcategoryController extends Controller
 
         $subcategory->subcategory = $request->get('subcategory');
         $subcategory->note = $request->get('note'); 
+        $subcategory->update_user = Auth::user()->id;
         $subcategory->save();
 
         return redirect()->route('subcategories.index')->with('message', 'Subcategory Updated.');

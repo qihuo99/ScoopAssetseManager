@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
+use Auth;
 
 class CategoryController extends Controller
 {
@@ -51,7 +52,7 @@ class CategoryController extends Controller
         $category = new Category();
         $category->category = $request->category;
         $category->note = $request->note;
-        //$loc->create_user = $user->name;
+        $category->create_user = Auth::user()->id;
 
         //if insert is successful then we want to redirect to view to show to the user
         if ($category->save()){
@@ -105,6 +106,7 @@ class CategoryController extends Controller
 
         $category->category = $request->get('category');
         $category->note = $request->get('note'); 
+        $category->update_user = Auth::user()->id;
         $category->save();
 
         return redirect()->route('categories.index')->with('message', 'Category Updated.'); 
@@ -123,5 +125,11 @@ class CategoryController extends Controller
         $category->delete();
 
         return redirect()->route('categories.index')->with('message', 'Category Deleted.');
+    }
+
+    
+    public function subcategories()
+    {
+        return $this->hasMany(Subcategory::class);
     }
 }

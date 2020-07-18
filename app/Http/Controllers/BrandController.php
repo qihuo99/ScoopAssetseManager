@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 use App\Brand;
 
 class BrandController extends Controller
@@ -47,10 +48,10 @@ class BrandController extends Controller
         //validate the form date, and make this field required and set up max length to 255 varchar
         $this->validate($request, ['brand'=>'required|max:255']);
 
-        //$user = auth()->user();
         $brand = new Brand();
         $brand->brand = $request->brand;
         $brand->note = $request->note;
+        $brand->create_user = Auth::user()->id;
 
         //if insert is successful then we want to redirect to view to show to the user
         if ($brand->save()){
@@ -107,6 +108,8 @@ class BrandController extends Controller
 
         $brand->brand = $request->get('brand');
         $brand->note = $request->get('note'); 
+        $brand->update_user = Auth::user()->id;
+        //$brand->updated_at = now(); //update_at will be automatically updated with current datetime, no need to worry about it
         $brand->save();
 
         return redirect()->route('brands.index')->with('message', 'Brand Updated.');

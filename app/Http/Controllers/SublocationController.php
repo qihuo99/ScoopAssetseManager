@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Location;
 use App\Sublocation;
+use Auth;
 
 class SublocationController extends Controller
 {
@@ -57,6 +58,7 @@ class SublocationController extends Controller
         $sublocation->location_id = $request->location_id;
         $sublocation->sublocation = $request->sublocation;
         $sublocation->note = $request->note;
+        $sublocation->create_user = Auth::user()->id;
 
         //if insert is successful then we want to redirect to view to show to the user
         if ($sublocation->save()){
@@ -115,7 +117,8 @@ class SublocationController extends Controller
         $this->validate($request, ['sublocation'=>'required|max:255']);
 
         $sublocation->sublocation = $request->get('sublocation');
-        $sublocation->note = $request->get('note'); 
+        $sublocation->note = $request->get('note');
+        $sublocation->update_user = Auth::user()->id; 
         $sublocation->save();
 
         return redirect()->route('sublocations.index')->with('message', 'Sublocation Updated.');
