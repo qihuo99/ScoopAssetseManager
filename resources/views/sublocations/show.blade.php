@@ -3,10 +3,14 @@
 @section('content')
 
     <div class="container"> 
+        <h1> Sublocation Data Page:</h1>
+        <hr /> 
+        <br />
         <div class="form-group">
-            <h1> Sublocation Data Page:</h1>
-            <hr /> 
-            <br />
+            <label for="location" class="font-weight-bold"><h1>Main Location:</h1></label>
+            <input type="text" class="form-control text-primary font-weight-bold badge-light input-lg" id="location" readonly value="{{ $sublocation->location->location }}">
+        </div>
+        <div class="form-group">
             <label for="sublocation"><h2>Sublocation:</h2></label>
             <input type="text" class="form-control text-primary font-weight-bold badge-light input-lg" id="sublocation" readonly value="{{ $sublocation->sublocation }}">
         </div>

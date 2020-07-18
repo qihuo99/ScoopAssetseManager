@@ -54,7 +54,7 @@ class BrandController extends Controller
 
         //if insert is successful then we want to redirect to view to show to the user
         if ($brand->save()){
-            return redirect()->route('brands.show', $brand->id);
+            return redirect()->route('brands.index', $brand->id);
         }
         else {
             return redirect()->route('brands.create');

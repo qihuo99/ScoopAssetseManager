@@ -8,17 +8,17 @@
         </div>
     @endif
     <div class="container">         
-        <h1>All Categories:</h1>
+        <h1>All Subcategories:</h1>
         <ul class="nav nav-list">
-            <li class="divider mr-lg-5"><a href="/categories/create" class="btn btn-primary" style="margin-top: 5px;">Add A New Category :</a></li>
-            <li class="divider ml-lg-2"><a href="/subcategories/" class="btn btn-primary" style="margin-top: 5px;">Subcategory Home</a></li>
+            <li class="divider mr-lg-5"><a href="/subcategories/create" class="btn btn-primary" style="margin-top: 5px;">Add A New Subcategory </a></li>
         </ul>
-        <hr /> 
-        <table class="table table-striped table-bordered text-center table-hover table-sm ">
+        <hr />
+        <table class="table table-striped table-bordered text-center table-hover table-sm">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col" class="text-center align-middle">Id</td>
-                    <th scope="col" class="text-center align-middle">Category</td>
+                    <th scope="col" class="text-center align-middle">CategoryID</td>
+                    <th scope="col" class="text-center align-middle">Subcategory</td>
                     <th scope="col" class="text-center align-middle">Note</td>
                     <th scope="col" class="text-center align-middle">Create Date</td>
                     <th scope="col" class="text-center align-middle">View Details</td>
@@ -26,37 +26,38 @@
                     <th scope="col" class="text-center align-middle">Delete</td>
                 </tr>
             </thead>
+            </thead>
             <tbody>
-                @foreach ($categories as $category)
+                @foreach ($subcategories as $subcategory)
                 <tr>
-                    <th scope="row" class="text-center align-middle">{{ $category->id }}</td>
-                    <td>{{ $category->category }}</td>
-                    <td>{{ $category->note }}</td>
-                    <td>{{ $category->created_at}}</td>
-                    <td><a href="{{ route('categories.show', $category->id) }}" class="btn btn-primary m-1">View Details</a></td>
-                    <td><a href="{{ route('categories.edit', $category->id) }}" class="btn btn-primary m-1">Edit</a></td>
+                    <th scope="row" class="text-center align-middle">{{ $subcategory->id }}</td>
+                    <td>{{ $subcategory->category->category }}</td>
+                    <td>{{ $subcategory->subcategory }}</td>
+                    <td>{{ $subcategory->note }}</td>
+                    <td>{{ $subcategory->created_at}}</td>
+                    <td><a href="{{ route('subcategories.show', $subcategory->id) }}" class="btn btn-primary m-2">View Details</a></td>
+                    <td><a href="{{ route('subcategories.edit', $subcategory->id) }}" class="btn btn-primary m-2">Edit</a></td>
                     <td>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary  m-1" data-toggle="modal" data-target="#exampleModalCenter{{ $category->id }}">
+                        <button type="button" class="btn btn-primary m-2" data-toggle="modal" data-target="#exampleModalCenter{{ $subcategory->id }}">
                         Delete
                         </button>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="exampleModalCenter{{ $category->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal fade" id="exampleModalCenter{{ $subcategory->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
-                            
-                                <form action="{{ route('categories.destroy', $category->id) }}" method="POST">                               
+                                <form action="{{ route('subcategories.destroy', $subcategory->id) }}" method="POST">                               
                                     @method('DELETE')
                                     @csrf
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle">Delete Selected Category:</h5>
+                                            <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">Delete {{ $subcategory->category->category }} - {{ $subcategory->subcategory }} :</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <div class="modal-body">
-                                            Are you sure you want to delete {{ $category->category }} ?
+                                        <div class="modal-body font-weight-bold text-danger">
+                                            Are you sure you want to delete {{ $subcategory->category->category }} - {{ $subcategory->subcategory }} ?
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -72,7 +73,7 @@
             </tbody>
         </table>
         
-        {!! $categories->links() !!}  {{-- this is for adding pagination function --}}
+        {!! $subcategories->links() !!}  {{-- this is for adding pagination function --}}
     </div>
 
 @endsection
