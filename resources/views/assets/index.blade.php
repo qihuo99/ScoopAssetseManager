@@ -8,19 +8,21 @@
         </div>
     @endif
     <div class="container">         
-        <h1>All Sublocations:</h1>
+        <h1>All Assets:</h1>
         <ul class="nav nav-list">
-            <li class="divider mr-lg-5"><a href="/sublocations/create" class="btn btn-primary" style="margin-top: 5px;">Add A New Sublocation</a></li>
+            <li class="divider mr-lg-5"><a href="/assets/create" class="btn btn-primary" style="margin-top: 5px;">Add A New asset</a></li>
         </ul>
         <hr />
         <table class="table table-striped table-bordered text-center table-hover table-sm ">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col" class="text-center align-middle">Id</td>
-                    <th scope="col" class="text-center align-middle">Main Location</td>
-                    <th scope="col" class="text-center align-middle">Sublocation</td>
+                    <th scope="col" class="text-center align-middle">Brand ID</td>
+                    <th scope="col" class="text-center align-middle">Sublocation ID</td>
+                    <th scope="col" class="text-center align-middle">Subcategory ID</td>
+                    <th scope="col" class="text-center align-middle">Asset</td>
                     <th scope="col" class="text-center align-middle">Note</td>
-                    <th scope="col" class="text-center align-middle">Location-Sublocation</td>
+                    <th scope="col" class="text-center align-middle">Create Date</td>
                     <th scope="col" class="text-center align-middle">View Details</td>
                     <th scope="col" class="text-center align-middle">Edit</td>
                     <th scope="col" class="text-center align-middle">Delete</td>
@@ -28,36 +30,38 @@
             </thead>
             </thead>
             <tbody>
-                @foreach ($sublocations as $sublocation)
+                @foreach ($assets as $asset)
                 <tr>
-                    <th scope="row" class="text-center align-middle">{{ $sublocation->id }}</td>
-                    <td>{{ $sublocation->mainlocation}}</td>
-                    <td>{{ $sublocation->sublocation }}</td>
-                    <td>{{ $sublocation->note }}</td>
-                    <td>{{ $sublocation->mainlocation_sublocation}}</td>
-                    <td><a href="{{ route('sublocations.show', $sublocation->id) }}" class="btn btn-primary m-2">View Details</a></td>
-                    <td><a href="{{ route('sublocations.edit', $sublocation->id) }}" class="btn btn-primary m-2">Edit</a></td>
+                    <th scope="row" class="text-center align-middle">{{ $asset->id }}</td>
+                    <td>{{ $asset->brand_id }}</td>
+                    <td>{{ $asset->sublocation_id  }}</td>
+                    <td>{{ $asset->subcategory_id  }}</td>
+                    <td>{{ $asset->asset }}</td>
+                    <td>{{ $asset->note }}</td>
+                    <td>{{ $asset->created_at}}</td>
+                    <td><a href="{{ route('assets.show', $asset->id) }}" class="btn btn-primary m-2">View Details</a></td>
+                    <td><a href="{{ route('assets.edit', $asset->id) }}" class="btn btn-primary m-2">Edit</a></td>
                     <td>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary m-2" data-toggle="modal" data-target="#exampleModalCenter{{ $sublocation->id }}">
+                        <button type="button" class="btn btn-primary m-2" data-toggle="modal" data-target="#exampleModalCenter{{ $asset->id }}">
                         Delete
                         </button>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="exampleModalCenter{{ $sublocation->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal fade" id="exampleModalCenter{{ $asset->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
-                                <form action="{{ route('sublocations.destroy', $sublocation->id) }}" method="POST">                               
+                                <form action="{{ route('assets.destroy', $asset->id) }}" method="POST">                               
                                     @method('DELETE')
                                     @csrf
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">Delete {{ $sublocation->location->location }} - {{ $sublocation->sublocation }} :</h5>
+                                            <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">Delete  {{ $asset->asset }} :</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body font-weight-bold text-danger">
-                                            Are you sure you want to delete {{ $sublocation->location->location }} - {{ $sublocation->sublocation }} ?
+                                            Are you sure you want to delete ?
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -73,7 +77,7 @@
             </tbody>
         </table>
         
-        {!! $sublocations->links() !!}  {{-- this is for adding pagination function --}}
+        {!! $assets->links() !!}  {{-- this is for adding pagination function --}}
     </div>
 
 @endsection

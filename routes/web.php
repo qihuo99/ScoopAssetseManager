@@ -20,6 +20,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('assets', 'AssetController');
 Route::resource('locations', 'LocationController');
 Route::resource('sublocations', 'SublocationController');
 

@@ -54,9 +54,14 @@ class SublocationController extends Controller
         //save a sublocation record with location_id fk key
         $this->validate($request, ['sublocation'=>'required|max:255']);
 
+        //$location = new Location();
+        $location = Location::findOrFail($request->location_id); //In case the id is not found
+
         $sublocation = new Sublocation();
         $sublocation->location_id = $request->location_id;
         $sublocation->sublocation = $request->sublocation;
+        $sublocation->mainlocation = $location->location;
+        $sublocation->mainlocation_sublocation = $location->location.'-'. $request->sublocation;  
         $sublocation->note = $request->note;
         $sublocation->create_user = Auth::user()->id;
 
@@ -82,12 +87,12 @@ class SublocationController extends Controller
         //use the model to get 1 record from the database
         //show the view and pass the record to the view
         $sublocation = Sublocation::findOrFail($id); //In case the id is not found
-        $location = Sublocation::findOrFail($sublocation->location_id);
+        $location = Location::findOrFail($sublocation->location_id);
 
         //return the view with some info, first parameter is the name of the data
         //we want to refer to. Second parameter is the actual data we want to pass into
         //return view('sublocations.show')->with('sublocation', $sublocation); 
-        return view('sublocations.show', compact('sublocation'));
+        return view('sublocations.show', compact('sublocation', 'location'));
     }
 
     /**
@@ -112,11 +117,12 @@ class SublocationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-        $sublocation = Sublocation::findOrFail($id); //In case the id is not found
         $this->validate($request, ['sublocation'=>'required|max:255']);
+        //$location = Location::findOrFail($request->location_id); //In case the id is not found
 
+        $sublocation = Sublocation::findOrFail($id); //In case the id is not found
         $sublocation->sublocation = $request->get('sublocation');
+        $sublocation->mainlocation_sublocation =  $request->get('mainlocation').'-'.$request->get('sublocation'); 
         $sublocation->note = $request->get('note');
         $sublocation->update_user = Auth::user()->id; 
         $sublocation->save();

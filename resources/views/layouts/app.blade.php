@@ -36,7 +36,10 @@
                             <a class="nav-link" href="/">Home   <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item mr-2">
-                            <a class="nav-link" href="/locations">Locations   </a>
+                            <a class="nav-link" href="/assets">Asset</a>
+                        </li>
+                        <li class="nav-item mr-2">
+                            <a class="nav-link" href="/locations">Locations</a>
                         </li>
                         <li class="nav-item mr-2">
                             <a class="nav-link" href="/brands">Brands</a>

@@ -17,6 +17,8 @@ class CreateSubcategoriesTable extends Migration
             $table->id();
             $table->bigInteger('category_id')->unsigned();
             $table->string('subcategory'); //string is the default varchar type, max len is 256
+            $table->string('maincategory')->nullable(); 
+            $table->string('maincategory_subcategory')->nullable(); 
             $table->text('note')->nullable();    
             $table->timestamps();
             $table->string('create_user')->nullable();

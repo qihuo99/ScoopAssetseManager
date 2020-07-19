@@ -17,6 +17,8 @@ class CreateSublocationsTable extends Migration
             $table->id();
             $table->bigInteger('location_id')->unsigned();
             $table->string('sublocation'); //string is the default varchar type, max len is 256
+            $table->string('mainlocation')->nullable(); 
+            $table->string('mainlocation_sublocation')->nullable(); 
             $table->text('note')->nullable();    
             $table->timestamps();
             $table->string('create_user')->nullable();
