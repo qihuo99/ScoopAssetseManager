@@ -17,10 +17,10 @@
             <thead class="thead-dark">
                 <tr>
                     <th scope="col" class="text-center align-middle">Id</td>
-                    <th scope="col" class="text-center align-middle">CategoryID</td>
+                    <th scope="col" class="text-center align-middle">Main Category</td>
                     <th scope="col" class="text-center align-middle">Subcategory</td>
                     <th scope="col" class="text-center align-middle">Note</td>
-                    <th scope="col" class="text-center align-middle">Create Date</td>
+                    <th scope="col" class="text-center align-middle">Main Category-Subcategory</td>
                     <th scope="col" class="text-center align-middle">View Details</td>
                     <th scope="col" class="text-center align-middle">Edit</td>
                     <th scope="col" class="text-center align-middle">Delete</td>
@@ -31,10 +31,10 @@
                 @foreach ($subcategories as $subcategory)
                 <tr>
                     <th scope="row" class="text-center align-middle">{{ $subcategory->id }}</td>
-                    <td>{{ $subcategory->category->category }}</td>
+                    <td>{{ $subcategory->maincategory}}</td>
                     <td>{{ $subcategory->subcategory }}</td>
                     <td>{{ $subcategory->note }}</td>
-                    <td>{{ $subcategory->created_at}}</td>
+                    <td>{{ $subcategory->maincategory_subcategory}}</td>
                     <td><a href="{{ route('subcategories.show', $subcategory->id) }}" class="btn btn-primary m-2">View Details</a></td>
                     <td><a href="{{ route('subcategories.edit', $subcategory->id) }}" class="btn btn-primary m-2">Edit</a></td>
                     <td>

@@ -7,6 +7,7 @@ use Auth;
 use App\Asset;
 use App\Brand;
 use App\Sublocation;
+use App\Subcategory;
 
 class AssetController extends Controller
 {
@@ -36,13 +37,14 @@ class AssetController extends Controller
         //defines brands data and retrieve
         $brands = Brand::all();
         $sublocations = Sublocation::all();
+        $subcategories = Subcategory::all();
 
         //Order by will display the latest location entries first, in desc order
-        //$categories = Category::orderBy('id', 'desc')->paginate(3);  //retrieve records in paginations format, 3 per page.
+        $assets = Asset::orderBy('id', 'desc')->paginate(8);  //retrieve records in paginations format, 3 per page.
 
         //go to the view folder and look for locations folder and then
         //a file named create.blade.php
-        return view('assets.create', compact('brands', 'sublocations'));  
+        return view('assets.create', compact('brands', 'sublocations', 'subcategories'));  
     }
 
     /**

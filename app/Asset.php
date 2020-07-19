@@ -29,8 +29,6 @@ class Asset extends Model
         return $this->hasMany('App\Subcategory'); //this is one->many relationship
     }
 
-
-  
     //here we want to reference to sublocations
     public function sublocations()
     {

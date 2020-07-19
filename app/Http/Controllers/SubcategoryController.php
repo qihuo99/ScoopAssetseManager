@@ -60,10 +60,14 @@ class SubcategoryController extends Controller
     {
         //Save into the database
         $this->validate($request, ['subcategory'=>'required|max:255']);
+        $category = Category::findOrFail($request->category_id); //In case the id is not found
 
         $subcategory = new Subcategory();
         $subcategory->category_id = $request->category_id;
         $subcategory->subcategory = $request->subcategory;
+        $subcategory->maincategory = $category->category;
+        $subcategory->maincategory_subcategory = $category->category.'=>'.$request->subcategory;    
+
         $subcategory->note = $request->note;
         $subcategory->create_user = Auth::user()->id;
 
@@ -91,6 +95,8 @@ class SubcategoryController extends Controller
 
         //show the view and pass the record to the view
         $subcategory = Subcategory::findOrFail($id); //In case the id is not found
+        $category = Category::findOrFail($subcategory->category_id); //In case the id is not found
+
         //$subcategory = Subcategory::findOrFail($subcategory->category_id);
 
         //return the view with some info, first parameter is the name of the data

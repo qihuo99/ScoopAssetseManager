@@ -14,6 +14,7 @@
                 <div class="form-group">
                     <label for="category_id">Category</label>
                     <select name="category_id" id="category_id" class="form-control">
+                    <option disabled selected value> -- select an option -- </option>
                     @foreach ($categories as $category)
                         <option value="{{ $category->id }}">{{ $category->category }}</option>
                     @endforeach

@@ -10,26 +10,6 @@
                 so the form can be submitted successfully to the database
                 -->
                 {{ csrf_field() }} 
-
-                <div class="form-group row">
-                    <div class="col-sm-6">
-                        <label for="brand_id">Brand</label>
-                        <select name="brand_id" id="brand_id" class="form-control">
-                            @foreach ($brands as $brand)
-                                <option value="{{ $brand->id }}">{{ $brand->brand }}</option>
-                            @endforeach
-                        </select> 
-                    </div>
-                    
-                    <div class="col-sm-6">
-                        <label for="sublocation_id">Location - Sublocation</label>
-                        <select name="sublocation_id" id="sublocation_id" class="form-control">
-                             @foreach ($sublocations as $sublocation)
-                                <option value="{{ $sublocation->id }}">{{ $sublocation->mainlocation_sublocation }}</option>
-                            @endforeach
-                        </select> 
-                    </div>
-                </div>
                 <label for="asset">Asset: </label>
                 <input type="text" name="asset" id="asset" class="form-control @error('asset') is-invalid @enderror" />    
                 @error('subcategory')
@@ -37,11 +17,52 @@
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
-                <br /><br />
+                <br />
+
+                <div class="form-group row">
+                    <div class="col-sm-6">  
+                        <label for="subcategory_id">Main Category - Subcategory</label>
+                        <select name="subcategory_id" id="subcategory_id" class="form-control">
+                             <option disabled selected value> -- select an option -- </option>
+                             @foreach ($subcategories as $subcategory)
+                                <option value="{{ $subcategory->id }}">{{ $subcategory->maincategory_subcategory }}</option>
+                             @endforeach
+                        </select> 
+                    </div>
+                    <div class="col-sm-4 text-center">
+                        <br />  <br />
+                        <div class="custom-control custom-checkbox ">
+                            <input type="checkbox" class="custom-control-input" id="has_tag" >
+                            <label class="custom-control-label" for="has_tag">Has tag</label>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="sublocation_id">Location - Sublocation</label>
+                        <select name="sublocation_id" id="sublocation_id" class="form-control">
+                             <option disabled selected value> -- select an option -- </option>
+                              @foreach ($sublocations as $sublocation)
+                                <option value="{{ $sublocation->id }}">{{ $sublocation->mainlocation_sublocation }}</option>
+                              @endforeach
+                        </select> 
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="brand_id">Brand</label>
+                        <select name="brand_id" id="brand_id" class="form-control">
+                            <option disabled selected value> -- select an option -- </option>
+                            @foreach ($brands as $brand)
+                                <option value="{{ $brand->id }}">{{ $brand->brand }}</option>
+                            @endforeach
+                        </select> 
+                    </div>
+                </div>
+
                 <label for="note">More Information (Note): </label>
                 <textarea class="form-control" name="note" id="note" rows="4"></textarea>
                 <br />
-                <input type="submit" class="" value="Add" />
+                <input type="submit" class="btn btn-primary" value="Add" />
             </form>
     </div>
 @endsection
