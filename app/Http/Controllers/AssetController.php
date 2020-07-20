@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 use Auth;
 use App\Asset;
 use App\Brand;
@@ -56,12 +58,36 @@ class AssetController extends Controller
     public function store(Request $request)
     {
         //save a sublocation record with location_id fk key
-        $this->validate($request, ['asset'=>'required|max:255']);
+        //$this->validate($request, ['asset'=>'required|max:255']);
+        $request->validate([
+            'asset'=>'required|max:255',
+            'sublocation_id'=>'required',
+        ]);
+
+        $inputValue = $request->all();
 
         $asset = new Asset();
         $asset->brand_id = $request->brand_id;
+        $asset->sublocation_id = $request->sublocation_id ;
+        $asset->subcategory_id = $request->subcategory_id;
         $asset->asset = $request->asset;
         $asset->note = $request->note;
+        //$asset->has_tag = $request->input('has_tag');
+        if (empty($inputValue['has_tag'])) {
+            // Do anything here\
+            $asset->has_tag = false;//
+        }
+        else{
+            $asset->has_tag = true;//..
+        }
+
+        //if( $request->has('has_tag') ){
+       //     $asset->has_tag = true;//...
+       // }
+        //else{
+       //     $asset->has_tag = false;//..
+       // }
+
         $asset->create_user = Auth::user()->id;
 
         //if insert is successful then we want to redirect to view to show to the user
@@ -86,11 +112,30 @@ class AssetController extends Controller
         //use the model to get 1 record from the database
         //show the view and pass the record to the view
         $asset = Asset::findOrFail($id); //In case the id is not found
-        //$asset = Asset::findOrFail($asset->brand_id);
+        //$subcategory = Subcategory::findOrFail($id);
+        //$subcategories = Subcategory::all();
+        //$subcategories = $subcategories->maincategory_subcategory;
+
+
+        //$subcategories = DB::select('select * from subcategories where id = ?', array(1));
+        //echo 'assetid='.$id;
+        //echo 'asset->subcategory_id='.$asset->subcategory_id;
+
+        $subcategories = DB::table('subcategories')->where('id', '=', $asset->subcategory_id)->get();
+
+        //$subcategories = DB::table('subcategories')->find(4);
+        //show the view and pass the record to the view
+        //$subcategory = Subcategory::findOrFail($id); //In case the id is not found
+        //$category = Category::findOrFail($subcategory->category_id); //In case the id is not found
+
+
+        //$subcategory = Subcategory::findOrFail($asset->subcategory_id); //In case the id is not found
+        //$subcategory = Subcategory::with('assets')->findOrFail($asset->subcategory_id);
+        //$subs = Subscription::with('description')->findOrFail($id); 
 
         //return the view with some info, first parameter is the name of the data
         //we want to refer to. Second parameter is the actual data we want to pass into
-        return view('assets.show', compact('asset'));
+        return view('assets.show', compact('asset', 'subcategories'));
     }
 
     /**

@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Asset extends Model
 {
 
-
     //We want to define relationship between Assets and brands
     //here we want to reference to brands
     public function brands()
@@ -15,38 +14,30 @@ class Asset extends Model
         //define relationship between Assets and brands
         //one asset has only one brand
         //so we have to specify the name of brand model
-        return $this->hasMany('App\Brand'); //this is one->one relationship
+        //In addition, Eloquent assumes that the foreign key has a value matching the id 
+        // (or the custom $primaryKey) column of the parent. 
+        //return $this->hasOne('App\Phone', 'foreign_key', 'local_key'); -> sample code
+        return $this->hasOne('App\Brand', 'assets_brand_id_foreign', 'brand_id'); 
     }
 
-
-    //here we want to define relationship between locations and sublocations
-    //here we want to reference to sublocations
+    //here we want to define relationship between locations and subcategories
+    //here we want to reference to subcategories
     public function subcategories()
     {
-        //define relationship between categories and subcategories
-        //one location has multiple sublocations
-        //so we have to specify the name of sublocation model
-        return $this->hasMany('App\Subcategory'); //this is one->many relationship
+        //define relationship between assets and subcategories
+        //one asset has only category-subcategory
+        //so we have to specify the name of subcategory model
+        //return $this->hasOne('App\Subcategory', 'subcategory_id', 'id'); 
+        return $this->belongsTo('App\Subcategory'); 
     }
 
     //here we want to reference to sublocations
     public function sublocations()
     {
-        //define relationship between Assets and sublocations
-        //one asset has only one sublocation
+        //define relationship between Assets and Sublocations
+        //one asset has only one location-sublocation
         //so we have to specify the name of sublocation model
-        return $this->hasOne('App\Sublocation'); //this is one->one relationship
+        return $this->hasOne('App\Sublocation', 'assets_sublocation_id_foreign','sublocation_id'); 
     }
-
-  /*
-    //here we want to define relationship between assets and subcategories
-    //here we want to reference to subcategories
-    public function subcategories()
-    {
-        //define relationship between assets and subcategories
-        //one asset has only one subcategory
-        //so we have to specify the name of subcategory model
-        return $this->hasOne('App\Subcategory'); //this is one->one relationship
-    }  */
 
 }

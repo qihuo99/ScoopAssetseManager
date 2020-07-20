@@ -30,10 +30,10 @@
                         </select> 
                     </div>
                     <div class="col-sm-4 text-center">
-                        <br />  <br />
+                        <br /><br />
                         <div class="custom-control custom-checkbox ">
-                            <input type="checkbox" class="custom-control-input" id="has_tag" >
-                            <label class="custom-control-label" for="has_tag">Has tag</label>
+                            <input type="checkbox" class="custom-control-input" id="has_tag" value="0">
+                            <label class="custom-control-label" for="has_tag" >Has Tag</label>
                         </div>
                     </div>
                 </div>
