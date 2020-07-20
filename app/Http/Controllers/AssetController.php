@@ -114,28 +114,19 @@ class AssetController extends Controller
         $asset = Asset::findOrFail($id); //In case the id is not found
         //$subcategory = Subcategory::findOrFail($id);
         //$subcategories = Subcategory::all();
-        //$subcategories = $subcategories->maincategory_subcategory;
-
-
-        //$subcategories = DB::select('select * from subcategories where id = ?', array(1));
         //echo 'assetid='.$id;
         //echo 'asset->subcategory_id='.$asset->subcategory_id;
 
+        $brands = DB::table('brands')->where('id', '=', $asset->brand_id)->get();
         $subcategories = DB::table('subcategories')->where('id', '=', $asset->subcategory_id)->get();
-
-        //$subcategories = DB::table('subcategories')->find(4);
-        //show the view and pass the record to the view
-        //$subcategory = Subcategory::findOrFail($id); //In case the id is not found
-        //$category = Category::findOrFail($subcategory->category_id); //In case the id is not found
-
+        $sublocations = DB::table('sublocations')->where('id', '=', $asset->sublocation_id)->get();
 
         //$subcategory = Subcategory::findOrFail($asset->subcategory_id); //In case the id is not found
         //$subcategory = Subcategory::with('assets')->findOrFail($asset->subcategory_id);
-        //$subs = Subscription::with('description')->findOrFail($id); 
 
         //return the view with some info, first parameter is the name of the data
         //we want to refer to. Second parameter is the actual data we want to pass into
-        return view('assets.show', compact('asset', 'subcategories'));
+        return view('assets.show', compact('asset', 'brands', 'subcategories', 'sublocations'));
     }
 
     /**

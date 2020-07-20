@@ -16,23 +16,35 @@
                 @foreach ($subcategories as $subcategory)
                     @if ($subcategory)
                         <label for="subcategory" class="font-weight-bold"><h1>Category:</h1></label>
-                        <input type="text" class="form-control text-primary font-weight-bold badge-light input-lg" id="subcategory" readonly value="{{ $subcategory->maincategory_subcategory  }}">
+                        <input type="text" class="form-control text-primary font-weight-bold badge-light input-lg" id="subcategory" readonly value="{{ $subcategory->maincategory_subcategory }}">
                     @else
-                        <p>There is no record</p>
+                        <p>There is no category record</p>
                     @endif
                 @endforeach
                 </div>
             </div>
             <div class="col-sm-4">  
                 <div class="form-group">
-                    <label for="brand" class="font-weight-bold"><h1>Brand:</h1></label>
-                    <input type="text" class="form-control text-primary font-weight-bold badge-light input-lg" id="brand" readonly value="{{ $asset->brand_id }}">
+                @foreach ($sublocations as $sublocation)
+                    @if ($sublocation)
+                        <label for="sublocation" class="font-weight-bold"><h1>Location:</h1></label>
+                        <input type="text" class="form-control text-primary font-weight-bold badge-light input-lg" id="sublocation" readonly value="{{ $sublocation->mainlocation_sublocation }}">
+                    @else
+                        <p>There is no location record</p>
+                    @endif
+                @endforeach
                 </div>
             </div>
-            <div class="col-sm-4">    
+            <div class="col-sm-4">  
                 <div class="form-group">
-                    <label for="sublocation" class="font-weight-bold"><h1>Location:</h1></label>
-                    <input type="text" class="form-control text-primary font-weight-bold badge-light input-lg" id="sublocation" readonly value="{{ $asset->sublocation_id }}">
+                <label for="brand" class="font-weight-bold"><h1>Brand:</h1></label>
+                @foreach ($brands as $brand) 
+                    @if ($brand)                
+                        <input type="text" class="form-control text-primary font-weight-bold badge-light input-lg" id="brand" readonly value="{{ $brand->brand }}">
+                    @else
+                        <input type="text" class="form-control text-primary font-weight-bold badge-light input-lg" id="brand" readonly value="N/A">
+                    @endif
+                @endforeach
                 </div>
             </div>
         </div>
