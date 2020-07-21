@@ -170,33 +170,21 @@ class AssetController extends Controller
             'brand_id'=>'required',
         ]);
 
-        echo 'asset current id='.$id;
-        //echo '$request->get.brand_id='.$request->get('brand_id');
-        //echo '$request->get.sublocation_id='.$request->get('sublocation_id');
-        //echo '$request->get.subcategory_id='.$request->get('subcategory_id');
-        //echo '$request->get.note='.$request->get('note');
-        //echo '$request->get.asset='.$request->get('asset');
-        //$asset = DB::table('assets')->where('id', '=', $id)->get();
+        //dd($id); //
+        $inputValue = $request->all();
+        //dd($inputValue);
+
         $asset = Asset::findOrFail($id);
+        $asset->asset = $request->get('asset');
         $asset->brand_id = $request->get('brand_id'); 
         $asset->sublocation_id =$request->get('sublocation_id');  
         $asset->subcategory_id = $request->get('subcategory_id');
-        $asset->asset = $request->get('asset');
         $asset->note = $request->get('note');
-        //$asset->fill($request->all());
         $asset->update_user = Auth::user()->id; 
+        //print_r($asset);
+        //die();
+        $asset->save();
 
-        dd($asset);
-        //$asset->save();
-        //$assets = Asset::where($asset)->update($request->all());
-        //if ($asset->save()){
-        //    return redirect()->route('assets.index', $asset->id);
-       // }
-       // else {
-       //     return redirect()->route('assets.edit');
-       // }
-
-        //return view('assets.edit', compact('asset')); 
         return redirect()->route('assets.index')->with('message', 'Sublocation Updated.');
     }
 

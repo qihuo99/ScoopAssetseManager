@@ -5,7 +5,6 @@
     <div class="container">
         <h1>Update an existing asset:</h1>
         <hr />
-        <p>currentasset_id |  </p>  
         @if(Session::has('message'))
             <div class="alert alert-success">
                 {{ Session::get('message') }}
@@ -13,15 +12,16 @@
         @endif
         <form action="{{ route('assets.update', $asset->id) }}" method="POST"> 
             @method('PATCH')
-
             <!-- csrf will prevent cross-browser submission
             csrf_field() will create hidden field with token values in the form
             so the form can be submitted successfully to the database
+            Please note that all field must have name attribute specified. it is more
+            important than id, otherwise the field values won't pass back to controller.
             -->
             @csrf
             <div class="form-group">
-                <label for="asset" class="font-weight-bold"><h1>Asset: {{ $asset->id }}</h1></label>
-                <input type="text" class="form-control text-primary font-weight-bold badge-light input-lg" id="asset" value="{{ $asset->asset }}">
+                <label for="asset" class="font-weight-bold"><h1>Asset: </h1></label>
+                <input type="text" name="asset" id="asset" class="form-control @error('asset') is-invalid @enderror" value="{{ $asset->asset }}" />    
                 @error('asset')
                 <span class="invalid-feedback font-weight-bold text-danger" role="alert">
                     <strong>{{ $message }}</strong>
