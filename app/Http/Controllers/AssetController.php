@@ -67,6 +67,8 @@ class AssetController extends Controller
         ]);
 
         $inputValue = $request->all();
+        //Very important, in order for checkbox values to passed to 
+        //the controller successfully, both id and name must be specified in blade
 
         $asset = new Asset();
         $asset->brand_id = $request->brand_id;
@@ -74,22 +76,14 @@ class AssetController extends Controller
         $asset->subcategory_id = $request->subcategory_id;
         $asset->asset = $request->asset;
         $asset->note = $request->note;
+        $asset->has_tag = $request->has('has_tag');
 
-        echo 'asset->subcategory_id='.$asset->subcategory_id;
-        echo 'has_tag='.$request->input('has_tag');
-        //exit;
-        //echo 'asset->subcategory_id='.$asset->subcategory_id;
+        //$test = ($request->has('has_tag'));
+        //dd($request->has('has_tag'));
+        //dd($test);
+        //$asset->input['has_tag'] = true;
 
-        //$asset->has_tag = $request->input('has_tag');
-        if (empty($inputValue['has_tag'])) {
-            // Do anything here\
-            $asset->has_tag = false;//
-        }
-        else{
-            $asset->has_tag = true;//..
-        }
-
-        //if( $request->has('has_tag') ){
+        //if( empty($request->has('has_tag')) ){
        //     $asset->has_tag = true;//...
        // }
         //else{
@@ -97,6 +91,12 @@ class AssetController extends Controller
        // }
 
         $asset->create_user = Auth::user()->id;
+       // dd($inputValue);
+
+        //var_dump($inputValue);
+        //die();
+       // echo '--that is today!';
+        //dd($asset);
 
         //if insert is successful then we want to redirect to view to show to the user
         if ($asset->save()){
@@ -176,25 +176,28 @@ class AssetController extends Controller
         //echo '$request->get.subcategory_id='.$request->get('subcategory_id');
         //echo '$request->get.note='.$request->get('note');
         //echo '$request->get.asset='.$request->get('asset');
-        $asset = DB::table('assets')->where('id', '=', $id)->get();
-        //$asset = Asset::findOrFail($id);
-        //$asset->brand_id = $request->get('brand_id'); 
-        //$asset->sublocation_id =$request->get('sublocation_id');  
-        //$asset->subcategory_id = $request->get('subcategory_id');
-        //$asset->asset = $request->get('asset');
-        //$asset->note = $request->get('note');
+        //$asset = DB::table('assets')->where('id', '=', $id)->get();
+        $asset = Asset::findOrFail($id);
+        $asset->brand_id = $request->get('brand_id'); 
+        $asset->sublocation_id =$request->get('sublocation_id');  
+        $asset->subcategory_id = $request->get('subcategory_id');
+        $asset->asset = $request->get('asset');
+        $asset->note = $request->get('note');
+        //$asset->fill($request->all());
         $asset->update_user = Auth::user()->id; 
-        //$asset->save();
 
-        if ($asset->save()){
-            return redirect()->route('assets.index', $asset->id);
-        }
-        else {
-            return redirect()->route('assets.edit');
-        }
+        dd($asset);
+        //$asset->save();
+        //$assets = Asset::where($asset)->update($request->all());
+        //if ($asset->save()){
+        //    return redirect()->route('assets.index', $asset->id);
+       // }
+       // else {
+       //     return redirect()->route('assets.edit');
+       // }
 
         //return view('assets.edit', compact('asset')); 
-       // return redirect()->route('assets.index')->with('message', 'Sublocation Updated.');
+        return redirect()->route('assets.index')->with('message', 'Sublocation Updated.');
     }
 
     /**

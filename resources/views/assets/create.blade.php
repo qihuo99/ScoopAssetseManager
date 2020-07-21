@@ -12,7 +12,7 @@
                 {{ csrf_field() }} 
                 <label for="asset">Asset: </label>
                 <input type="text" name="asset" id="asset" class="form-control @error('asset') is-invalid @enderror" />    
-                @error('subcategory')
+                @error('asset')
                     <span class="invalid-feedback font-weight-bold text-danger" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -32,7 +32,7 @@
                     <div class="col-sm-4 text-center">
                         <br /><br />
                         <div class="custom-control custom-checkbox ">
-                            <input type="checkbox" class="custom-control-input" id="has_tag" value="0">
+                            <input type="checkbox" class="custom-control-input" name="has_tag" id="has_tag" >
                             <label class="custom-control-label" for="has_tag" >Has Tag</label>
                         </div>
                     </div>

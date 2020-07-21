@@ -12,7 +12,7 @@
             </div>
         @endif
         <form action="{{ route('assets.update', $asset->id) }}" method="POST"> 
-            @method('PUT')
+            @method('PATCH')
 
             <!-- csrf will prevent cross-browser submission
             csrf_field() will create hidden field with token values in the form
@@ -20,7 +20,7 @@
             -->
             @csrf
             <div class="form-group">
-                <label for="asset" class="font-weight-bold"><h1>Asset: {{ $asset->brand_id}}</h1></label>
+                <label for="asset" class="font-weight-bold"><h1>Asset: {{ $asset->id }}</h1></label>
                 <input type="text" class="form-control text-primary font-weight-bold badge-light input-lg" id="asset" value="{{ $asset->asset }}">
                 @error('asset')
                 <span class="invalid-feedback font-weight-bold text-danger" role="alert">
