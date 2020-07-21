@@ -17,7 +17,7 @@ class Asset extends Model
         //In addition, Eloquent assumes that the foreign key has a value matching the id 
         // (or the custom $primaryKey) column of the parent. 
         //return $this->hasOne('App\Phone', 'foreign_key', 'local_key'); -> sample code
-        return $this->hasOne('App\Brand', 'assets_brand_id_foreign', 'brand_id'); 
+        return $this->hasOne('App\Brand'); 
     }
 
     //here we want to define relationship between locations and subcategories
@@ -37,7 +37,7 @@ class Asset extends Model
         //define relationship between Assets and Sublocations
         //one asset has only one location-sublocation
         //so we have to specify the name of sublocation model
-        return $this->hasOne('App\Sublocation', 'assets_sublocation_id_foreign','sublocation_id'); 
+        return $this->hasOne('App\Sublocation'); 
     }
 
 }

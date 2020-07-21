@@ -62,6 +62,8 @@ class AssetController extends Controller
         $request->validate([
             'asset'=>'required|max:255',
             'sublocation_id'=>'required',
+            'subcategory_id'=>'required',
+            'brand_id'=>'required',
         ]);
 
         $inputValue = $request->all();
@@ -72,6 +74,12 @@ class AssetController extends Controller
         $asset->subcategory_id = $request->subcategory_id;
         $asset->asset = $request->asset;
         $asset->note = $request->note;
+
+        echo 'asset->subcategory_id='.$asset->subcategory_id;
+        echo 'has_tag='.$request->input('has_tag');
+        //exit;
+        //echo 'asset->subcategory_id='.$asset->subcategory_id;
+
         //$asset->has_tag = $request->input('has_tag');
         if (empty($inputValue['has_tag'])) {
             // Do anything here\
@@ -137,7 +145,13 @@ class AssetController extends Controller
      */
     public function edit($id)
     {
-        //
+        //edit subcategory
+        $asset = Asset::findOrFail($id);
+        $brands = Brand::all();
+        $sublocations = Sublocation::all();
+        $subcategories = Subcategory::all();
+
+        return view('assets.edit', compact('asset', 'brands', 'subcategories', 'sublocations')); 
     }
 
     /**
@@ -149,7 +163,38 @@ class AssetController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'asset'=>'required|max:255',
+            'sublocation_id'=>'required',
+            'subcategory_id'=>'required',
+            'brand_id'=>'required',
+        ]);
+
+        echo 'asset current id='.$id;
+        //echo '$request->get.brand_id='.$request->get('brand_id');
+        //echo '$request->get.sublocation_id='.$request->get('sublocation_id');
+        //echo '$request->get.subcategory_id='.$request->get('subcategory_id');
+        //echo '$request->get.note='.$request->get('note');
+        //echo '$request->get.asset='.$request->get('asset');
+        $asset = DB::table('assets')->where('id', '=', $id)->get();
+        //$asset = Asset::findOrFail($id);
+        //$asset->brand_id = $request->get('brand_id'); 
+        //$asset->sublocation_id =$request->get('sublocation_id');  
+        //$asset->subcategory_id = $request->get('subcategory_id');
+        //$asset->asset = $request->get('asset');
+        //$asset->note = $request->get('note');
+        $asset->update_user = Auth::user()->id; 
+        //$asset->save();
+
+        if ($asset->save()){
+            return redirect()->route('assets.index', $asset->id);
+        }
+        else {
+            return redirect()->route('assets.edit');
+        }
+
+        //return view('assets.edit', compact('asset')); 
+       // return redirect()->route('assets.index')->with('message', 'Sublocation Updated.');
     }
 
     /**
@@ -160,19 +205,11 @@ class AssetController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //delete a sublocation
+        $asset = Asset::findOrFail($id); //In case the id is not found
+        $asset->delete();
+
+        return redirect()->route('assets.index')->with('message', 'Asset Deleted.');
     }
 
-    public function brand()
-    {
-        //SELECT * FROM `addresses` WHERE user_id = ??
-        //id is the default PK, so the relation is automatically
-        //being figured out. Since this is User model, so FK, by
-        //default, should be user_id, if use a different name, then it
-        //won't work.
-        //return $this->hasOne('App\Location');
-        //return $this->hasOne(Location::class); //the two lines will do the same thing
-
-        return $this->hasMany(Brand::class);
-    }
 }
