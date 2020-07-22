@@ -31,7 +31,8 @@ class AssetController extends Controller
         ->join('sublocations', 'sublocations.id', '=', 'assets.sublocation_id')
         ->join('subcategories', 'subcategories.id', '=', 'assets.subcategory_id')
         ->select('assets.id','brands.brand', 'sublocations.mainlocation_sublocation', 'subcategories.maincategory_subcategory','assets.asset', 'assets.note' )
-        ->get()->paginate(3);
+        //->get()
+        ->paginate(5);
 
         //print_r($assets);
         //die;

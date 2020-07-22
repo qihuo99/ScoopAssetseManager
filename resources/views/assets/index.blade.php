@@ -74,7 +74,7 @@
             </tbody>
         </table>
         
-         {!! $assets->links() !!}  {{-- this is for adding pagination function --}}
+         {!! $assetdata->links() !!}  {{-- this is for adding pagination function --}}
     </div>
 
 @endsection
