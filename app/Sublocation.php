@@ -20,14 +20,4 @@ class Sublocation extends Model
         return $this->belongsTo('App\Location'); //this is one->many relationship
     }
 
-
-    public function asset()
-    {
-        //define relationship between assets and brands
-        //each brand belongs to only one asset
-        //this is a one-to-many relationship
-        //so we have to specify the name of Asset model
-        return $this->belongsTo('App\Asset'); 
-    }
-
 }

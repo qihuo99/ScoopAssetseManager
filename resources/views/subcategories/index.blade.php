@@ -31,7 +31,7 @@
                 @foreach ($subcategories as $subcategory)
                 <tr>
                     <th scope="row" class="text-center align-middle">{{ $subcategory->id }}</td>
-                    <td>{{ $subcategory->maincategory}}</td>
+                    <td>{{ $subcategory->category->category }} </td>
                     <td>{{ $subcategory->subcategory }}</td>
                     <td>{{ $subcategory->note }}</td>
                     <td>{{ $subcategory->maincategory_subcategory}}</td>

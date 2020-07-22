@@ -14,13 +14,14 @@ class Brand extends Model
     //If you want to block all fields from being mass-assign you can just do this.
     //protected $guarded = [‘*’];
 
-    public function asset()
+    public function assets()
     {
         //define relationship between assets and brands
         //each brand belongs to only one asset
         //this is a one-to-many relationship
         //so we have to specify the name of Asset model
-        return $this->belongsTo('App\Asset'); 
-    }
+   //     return $this->belongsTo('App\Asset'); 
+        return $this->hasOne('App\Brand'); 
+   }
 
 }

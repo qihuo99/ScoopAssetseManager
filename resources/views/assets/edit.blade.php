@@ -28,7 +28,6 @@
                 </span>
                 @enderror
             </div>
-
             <div class="form-group row">
                 <div class="col-sm-4">  
                     <label for="subcategory_id">Main Category - Subcategory</label>

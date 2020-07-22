@@ -23,14 +23,4 @@ class Subcategory extends Model
         return $this->belongsTo('App\Category'); 
     }
 
-    public function asset()
-    {
-        //define relationship between assets and brands
-        //each brand belongs to only one asset
-        //this is a one-to-many relationship
-        //so we have to specify the name of Asset model
-        //eturn $this->belongsTo('App\Asset', 'subcategory_id'); 
-        return $this->belongsTo('App\Asset'); 
-    }
-
 }

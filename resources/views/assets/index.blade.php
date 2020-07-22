@@ -17,12 +17,11 @@
             <thead class="thead-dark">
                 <tr>
                     <th scope="col" class="text-center align-middle">Id</td>
-                    <th scope="col" class="text-center align-middle">Brand ID</td>
-                    <th scope="col" class="text-center align-middle">Sublocation ID</td>
-                    <th scope="col" class="text-center align-middle">Subcategory ID</td>
                     <th scope="col" class="text-center align-middle">Asset</td>
+                    <th scope="col" class="text-center align-middle">Brand</td>
+                    <th scope="col" class="text-center align-middle">Location</td>
+                    <th scope="col" class="text-center align-middle">Category</td> 
                     <th scope="col" class="text-center align-middle">Note</td>
-                    <th scope="col" class="text-center align-middle">Create Date</td>
                     <th scope="col" class="text-center align-middle">View Details</td>
                     <th scope="col" class="text-center align-middle">Edit</td>
                     <th scope="col" class="text-center align-middle">Delete</td>
@@ -30,23 +29,21 @@
             </thead>
             </thead>
             <tbody>
-                @foreach ($assets as $asset)
+                @foreach ($assetdata as $asset)
                 <tr>
                     <th scope="row" class="text-center align-middle">{{ $asset->id }}</td>
-                    <td>{{ $asset->brand_id }}</td>
-                    <td>{{ $asset->sublocation_id  }}</td>
-                    <td>{{ $asset->subcategory_id  }}</td>
                     <td>{{ $asset->asset }}</td>
+                    <td>{{ $asset->brand }}</td>
+                    <td>{{ $asset->mainlocation_sublocation  }}</td>
+                    <td>{{ $asset->maincategory_subcategory  }}</td>
                     <td>{{ $asset->note }}</td>
-                    <td>{{ $asset->created_at}}</td>
-                    <td><a href="{{ route('assets.show', $asset->id) }}" class="btn btn-primary m-2">View Details</a></td>
+                    <td><a href="{{ route('assets.show', $asset->id) }}" class="btn btn-primary m-2">View</a></td>
                     <td><a href="{{ route('assets.edit', $asset->id) }}" class="btn btn-primary m-2">Edit</a></td>
                     <td>
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary m-2" data-toggle="modal" data-target="#exampleModalCenter{{ $asset->id }}">
                         Delete
                         </button>
-
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModalCenter{{ $asset->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -77,7 +74,7 @@
             </tbody>
         </table>
         
-        {!! $assets->links() !!}  {{-- this is for adding pagination function --}}
+         {!! $assets->links() !!}  {{-- this is for adding pagination function --}}
     </div>
 
 @endsection

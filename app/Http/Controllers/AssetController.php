@@ -23,10 +23,20 @@ class AssetController extends Controller
        //$sublocation = Sublocation::all();  //retrieve all records
 
         //Order by will display the latest assets entries first, in desc order
-        $assets = Asset::orderBy('id', 'desc')->paginate(6);  //retrieve records in paginations format, 3 per page.
+        //$assets = Asset::all()->paginate(3);  //retrieve records in paginations format, 3 per page.
+        //$assets  = Asset::orderBy('id', 'desc')->paginate(6);
 
-        //return view('locations.index')->with('locations', $loc);
-        return view('assets.index')->with('assets', $assets);
+        $assetdata = DB::table('assets')
+        ->join('brands', 'brands.id', '=', 'assets.brand_id')
+        ->join('sublocations', 'sublocations.id', '=', 'assets.sublocation_id')
+        ->join('subcategories', 'subcategories.id', '=', 'assets.subcategory_id')
+        ->select('assets.id','brands.brand', 'sublocations.mainlocation_sublocation', 'subcategories.maincategory_subcategory','assets.asset', 'assets.note' )
+        ->get()->paginate(3);
+
+        //print_r($assets);
+        //die;
+        //dd($assetdata);
+        return view('assets.index',  compact('assetdata') );
     }
 
     /**
