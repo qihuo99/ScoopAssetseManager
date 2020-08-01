@@ -28,3 +28,5 @@ Route::resource('sublocations', 'SublocationController');
 Route::resource('brands', 'BrandController');
 Route::resource('categories', 'CategoryController');
 Route::resource('subcategories', 'SubcategoryController');
+Route::resource('subcategories', 'SubcategoryController');
+Route::resource('assetborrowingmains', 'AssetBorrowingMainController');

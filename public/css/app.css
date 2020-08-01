@@ -240,6 +240,7 @@ th {
 }
 .table > tbody > tr > td {
   vertical-align: middle;
+  width: 100%;
 }
 label {
   display: inline-block;
@@ -252,7 +253,7 @@ button {
 
 button:focus {
   outline: 1px dotted;
-  outline: 5px auto -webkit-focus-ring-color;
+  outline: 3px auto -webkit-focus-ring-color;
 }
 
 input,
