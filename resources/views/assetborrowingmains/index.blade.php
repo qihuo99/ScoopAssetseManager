@@ -1,7 +1,7 @@
 @extends('layouts.dt_template')
 
 @section('main')
-    <h1>Assets Borrowing Main Page:</h1>
+    <h1>Assets Borrowing Index Page:</h1>
     <br />
     @if ($message = Session::get('success'))
     <div class="alert alert-success">
@@ -13,14 +13,11 @@
         <table id="asset_borrowing_table" class="table table-bordered table-striped" style="width:100%">
             <thead>
                 <tr>   
-                    <th width="25%">Asset</th>
-                    <th width="10%">Category</th>
-                    <th width="10%">Location</th>
-                    <th width="10%">Brand</th>
+                    <th width="10%">ID</th>
+                    <th width="25%">Asset ID Selected</th>
                     <th width="15%">Note</th>
-                    <th>
-                        <button type="button" name="bulk_insert" id="bulk_insert" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
-                    </th>
+                    <th width="15%">Create Date</th>             
+                    <th width="30%">Action</th>
                 </tr>
             </thead>
         </table>
@@ -30,14 +27,13 @@
         $('#asset_borrowing_table').DataTable({
             "processing": true,
             "serverSide": true,
-            "ajax": "{{ route('AssetBorrowing.getdata') }}",
+            "ajax": "{{ route('AssetBorrowing.getdataforindexpage') }}",
             "columns":[
-                { "data": "asset" },
-                { "data": "maincategory_subcategory" },
-                { "data": "mainlocation_sublocation" },
-                { "data": "brand" },
-                { "data": "note" },
-                { "data":"checkbox", orderable:false, searchable:false}
+                { "data": "id", name: 'id' },
+                { "data": "asset_id_selected", name: 'asset_id_selected' },
+                { "data": "note", name: 'note' },
+                { "data": "created_at", name: 'created_at' },
+                { "data": "action", name: '    action     ', orderable: false  }
             ]
         });
     });

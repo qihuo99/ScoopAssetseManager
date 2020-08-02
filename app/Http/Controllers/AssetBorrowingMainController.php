@@ -16,9 +16,26 @@ class AssetBorrowingMainController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        //$data = AssetBorrowingMain::select('id','asset_id','note','reated_at');
+        //$data  = AssetBorrowingMain::all();
+        if($request->ajax())
+        {
+            $data = AssetBorrowingMain::latest()->get();
+            return DataTables::of($data)
+                    ->addColumn('action', function($data){
+                        $button = '<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm">Edit</button>';
+                        $button .= '&nbsp;&nbsp;&nbsp;<button type="button" name="edit" id="'.$data->id.'" class="delete btn btn-danger btn-sm">Delete</button>';
+                        return $button;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+        }
+
+
         return view('assetborrowingmains.index');
+        //return view('assetborrowingmains.index', compact('data'));
         //$data = Asset::latest()->paginate(8);
 
         //$data = DB::table('assets')
@@ -35,22 +52,42 @@ class AssetBorrowingMainController extends Controller
         //127.0.0.1:8000/assetborrowingmains  ==> this is the localhost url
     }
 
-    function getdata()
+    function getdataforcreatnew()
     {
-        //$assets = Asset::select('id','asset','brand_id','sublocation_id','subcategory_id','note');
-        $assets = DB::table('assets')
-            ->join('brands', 'brands.id', '=', 'assets.brand_id')
-            ->join('sublocations', 'sublocations.id', '=', 'assets.sublocation_id')
-            ->join('subcategories', 'subcategories.id', '=', 'assets.subcategory_id')
-        ->select('assets.id','assets.asset', 'assets.note','brands.brand', 'sublocations.mainlocation_sublocation', 'subcategories.maincategory_subcategory' )
-        ->get();
+        
+        $data = DB::table('assets')
+                ->join('brands', 'brands.id', '=', 'assets.brand_id')
+                ->join('sublocations', 'sublocations.id', '=', 'assets.sublocation_id')
+                ->join('subcategories', 'subcategories.id', '=', 'assets.subcategory_id')
+            ->select('assets.id','assets.asset', 'assets.note','brands.brand', 'sublocations.mainlocation_sublocation', 'subcategories.maincategory_subcategory' )
+            ->get();
 
-        return Datatables::of($assets)
+        return Datatables::of($data)
             ->addColumn('checkbox', '<input type="checkbox" name="asset_checkbox[]" class="asset_checkbox" value="{{$id}}" />')
             ->rawColumns(['checkbox','action'])
             ->make(true);
     }
 
+    function getdataforindexpage()
+    {
+        //$assets = Asset::select('id','asset','brand_id','sublocation_id','subcategory_id','note');
+        $data = AssetBorrowingMain::select('id','asset_id_selected','note', 'created_at');
+        //$data  = AssetBorrowingMain::all();
+        return Datatables::of($data)
+            ->addColumn('action', function($data){
+                $button = '<button 
+                                type="button" 
+                                name="edit" 
+                                id="'.$data->id.'"
+                                class="edit btn btn-primary btn-mini">Edit</button>';
+                    //$button .= '&nbsp;&nbsp';
+                    //$button .= '<button type="button" name="delete" id="'.$data->id.'"
+                    //class="delete btn btn-danger btn-mini">Delete</button>';
+            return $button;
+        })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -60,6 +97,7 @@ class AssetBorrowingMainController extends Controller
     public function create()
     {
         //
+        return view('assetborrowingmains.create');
     }
 
     /**
@@ -82,6 +120,8 @@ class AssetBorrowingMainController extends Controller
     public function show($id)
     {
         //
+       
+
     }
 
     /**

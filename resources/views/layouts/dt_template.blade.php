@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Laravel 7 Datatables Tutorial - ItSolutionStuff.com</title>
+        <title>Scoop Asset eManager Application</title>
         <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1' />
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -62,9 +62,8 @@
                             Dropdown link
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                                <a class="dropdown-item" href="/AssetBorrowing">Asset Borrowing Home Page</a> 
+                                <a class="dropdown-item" href="/AssetBorrowing/create">Create New Asset Borrowing Data</a> 
                             </div>
                         </li>
                     </ul>

@@ -15,13 +15,11 @@ class CreateAssetBorrowingMainsTable extends Migration
     {
         Schema::create('asset_borrowing_mains', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('asset_id')->unsigned();
+            $table->string('asset_id_selected')->nullable();
             $table->text('note')->nullable();
             $table->timestamps();
             $table->string('create_user')->nullable();
             $table->string('update_user')->nullable();
-
-            $table->foreign('asset_id')->references('id')->on('assets')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

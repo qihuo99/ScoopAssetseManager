@@ -32,11 +32,11 @@ Route::resource('subcategories', 'SubcategoryController');
 //Route::resource('assetborrowingmains', 'AssetBorrowingMainController');
 
 Route::group(['middleware' => ['web']], function() {
-    //Route::resource('students','StudentController');
     Route::get('AssetBorrowing',    'AssetBorrowingMainController@index')->name('AssetBorrowing');
-    Route::get('AssetBorrowing/getdata', 'AssetBorrowingMainController@getdata')->name('AssetBorrowing.getdata');
+    Route::get('AssetBorrowing/getdataforindexpage', 'AssetBorrowingMainController@getdataforindexpage')->name('AssetBorrowing.getdataforindexpage');
+    Route::get('AssetBorrowing/getdataforcreatnew', 'AssetBorrowingMainController@getdataforcreatnew')->name('AssetBorrowing.getdataforcreatnew');
 
-    //Route::get('ajaxdata/getdata', 'AjaxdataController@getdata')->name('ajaxdata.getdata');
+    Route::get('AssetBorrowing/create', 'AssetBorrowingMainController@create')->name('AssetBorrowing.create');
 
    // Route::post('ajaxdata/postdata', 'AjaxdataController@postdata')->name('ajaxdata.postdata');
     
