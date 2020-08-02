@@ -23,7 +23,7 @@ class AssetBorrowingMainController extends Controller
         ->join('brands', 'brands.id', '=', 'assets.brand_id')
         ->join('sublocations', 'sublocations.id', '=', 'assets.sublocation_id')
         ->join('subcategories', 'subcategories.id', '=', 'assets.subcategory_id')
-        ->select('assets.id','assets.brand_id','brands.brand','assets.subcategory_id', 'sublocations.mainlocation_sublocation', 'subcategories.maincategory_subcategory','assets.asset', 'assets.note' )
+        ->select('assets.id','brands.brand', 'sublocations.mainlocation_sublocation', 'subcategories.maincategory_subcategory','assets.asset', 'assets.note' )
         //->get()
         ->paginate(6);
 
