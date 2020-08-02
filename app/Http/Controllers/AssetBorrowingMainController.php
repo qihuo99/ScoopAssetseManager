@@ -37,18 +37,18 @@ class AssetBorrowingMainController extends Controller
 
     function getdata()
     {
-        $assets = Asset::select('id','asset','brand_id','sublocation_id','subcategory_id','note');
-        //dd($assets);
+        //$assets = Asset::select('id','asset','brand_id','sublocation_id','subcategory_id','note');
+        $assets = DB::table('assets')
+            ->join('brands', 'brands.id', '=', 'assets.brand_id')
+            ->join('sublocations', 'sublocations.id', '=', 'assets.sublocation_id')
+            ->join('subcategories', 'subcategories.id', '=', 'assets.subcategory_id')
+        ->select('assets.id','assets.asset', 'assets.note','brands.brand', 'sublocations.mainlocation_sublocation', 'subcategories.maincategory_subcategory' )
+        ->get();
+
         return Datatables::of($assets)
             ->addColumn('checkbox', '<input type="checkbox" name="asset_checkbox[]" class="asset_checkbox" value="{{$id}}" />')
             ->rawColumns(['checkbox','action'])
             ->make(true);
-
-     //$students = Student::select('id', 'first_name', 'last_name');
-    // return Datatables::of($students)
-    ///        ->addColumn('checkbox', '<input type="checkbox" name="student_checkbox[]" class="student_checkbox" value="{{$id}}" />')
-     //       ->rawColumns(['checkbox','action'])
-    //        ->make(true);
     }
 
 
