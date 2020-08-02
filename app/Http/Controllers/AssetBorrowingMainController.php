@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Asset;
 use App\AssetBorrowingMain;
-use Datatables;
+//use Datatables;
+use Yajra\Datatables\Datatables;
 
 class AssetBorrowingMainController extends Controller
 {
@@ -17,26 +18,39 @@ class AssetBorrowingMainController extends Controller
      */
     public function index()
     {
+        return view('assetborrowingmains.index');
         //$data = Asset::latest()->paginate(8);
 
-        $data = DB::table('assets')
-        ->join('brands', 'brands.id', '=', 'assets.brand_id')
-        ->join('sublocations', 'sublocations.id', '=', 'assets.sublocation_id')
-        ->join('subcategories', 'subcategories.id', '=', 'assets.subcategory_id')
-        ->select('assets.id','brands.brand', 'sublocations.mainlocation_sublocation', 'subcategories.maincategory_subcategory','assets.asset', 'assets.note' )
-        //->get()
-        ->paginate(6);
+        //$data = DB::table('assets')
+        //->join('brands', 'brands.id', '=', 'assets.brand_id')
+        //->join('sublocations', 'sublocations.id', '=', 'assets.sublocation_id')
+       // ->join('subcategories', 'subcategories.id', '=', 'assets.subcategory_id')
+       // ->select('assets.id','brands.brand', 'sublocations.mainlocation_sublocation', 'subcategories.maincategory_subcategory','assets.asset', 'assets.note' )
+       // //->get()
+       // ->paginate(6);
 
-        //print_r($assets);
-        //die;
-        //dd($assetdata);
-        //return view('assets.index',  compact('assetdata') );
-
-        return view('assetborrowingmains.index', compact('data'))
-        ->with('i', (request()->input('page', 1) - 1) * 6);
+        //return view('assetborrowingmains.index', compact('data'))
+       // ->with('i', (request()->input('page', 1) - 1) * 6);
         //return view('assetborrowingmains.index');  
         //127.0.0.1:8000/assetborrowingmains  ==> this is the localhost url
     }
+
+    function getdata()
+    {
+        $assets = Asset::select('id','asset','brand_id','sublocation_id','subcategory_id','note');
+        //dd($assets);
+        return Datatables::of($assets)
+            ->addColumn('checkbox', '<input type="checkbox" name="asset_checkbox[]" class="asset_checkbox" value="{{$id}}" />')
+            ->rawColumns(['checkbox','action'])
+            ->make(true);
+
+     //$students = Student::select('id', 'first_name', 'last_name');
+    // return Datatables::of($students)
+    ///        ->addColumn('checkbox', '<input type="checkbox" name="student_checkbox[]" class="student_checkbox" value="{{$id}}" />')
+     //       ->rawColumns(['checkbox','action'])
+    //        ->make(true);
+    }
+
 
     /**
      * Show the form for creating a new resource.
