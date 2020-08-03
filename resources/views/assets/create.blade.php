@@ -1,15 +1,28 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">                     
+    <div class="container">    
+        @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif     
+        <div align="right">
+            <a href="{{ route('assets.index') }}" class="btn btn-default">Back</a>
+        </div>    
+
         <h1>Add A New Asset:</h1>  
         <hr />
-        <form action="{{ route('assets.store') }}" method="POST"> 
+        <form action="{{ route('assets.store') }}" method="POST" enctype="multipart/form-data"> 
                 <!-- csrf will prevent cross-browser submission
                 csrf_field() will create hidden field with token values in the form
                 so the form can be submitted successfully to the database
                 -->
-                {{ csrf_field() }} 
+                @csrf 
                 <label for="asset">Asset: </label>
                 <input type="text" name="asset" id="asset" class="form-control @error('asset') is-invalid @enderror" />    
                 @error('asset')
@@ -59,8 +72,21 @@
                     </div>
                 </div>
 
-                <label for="note">More Information (Note): </label>
-                <textarea class="form-control" name="note" id="note" rows="4"></textarea>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label class="col-md-4 text-right">Select Profile Image</label>
+                        <div>
+                            <input type="file" name="image" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="note">More Information (Note): </label>
+                        <textarea class="form-control" name="note" id="note" rows="4"></textarea>
+                    </div>
+                </div>
+
+
+
                 <br />
                 <input type="submit" class="btn btn-primary" value="Add" />
             </form>

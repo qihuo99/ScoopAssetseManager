@@ -16,8 +16,8 @@
         <table class="table table-striped table-bordered text-center table-hover table-sm ">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col" class="text-center align-middle">Id</td>
                     <th scope="col" class="text-center align-middle">Asset</td>
+                    <th scope="col" class="text-center align-middle">Image</td>
                     <th scope="col" class="text-center align-middle">Brand</td>
                     <th scope="col" class="text-center align-middle">Location</td>
                     <th scope="col" class="text-center align-middle">Category</td> 
@@ -31,8 +31,12 @@
             <tbody>
                 @foreach ($assetdata as $asset)
                 <tr>
-                    <th scope="row" class="text-center align-middle">{{ $asset->id }}</td>
                     <td>{{ $asset->asset }}</td>
+                    @if(is_null($asset->image))
+                    <td></td>
+                    @else
+                    <td><img src="{{ URL::to('/') }}/images/{{ $asset->image }}" class="img-thumbnail" width="75" /></td>
+                    @endif
                     <td>{{ $asset->brand }}</td>
                     <td>{{ $asset->mainlocation_sublocation  }}</td>
                     <td>{{ $asset->maincategory_subcategory  }}</td>

@@ -30,7 +30,7 @@ class AssetController extends Controller
         ->join('brands', 'brands.id', '=', 'assets.brand_id')
         ->join('sublocations', 'sublocations.id', '=', 'assets.sublocation_id')
         ->join('subcategories', 'subcategories.id', '=', 'assets.subcategory_id')
-        ->select('assets.id','brands.brand', 'sublocations.mainlocation_sublocation', 'subcategories.maincategory_subcategory','assets.asset', 'assets.note' )
+        ->select('assets.id','assets.image','brands.brand', 'sublocations.mainlocation_sublocation', 'subcategories.maincategory_subcategory','assets.asset', 'assets.note' )
         //->get()
         ->paginate(5);
 
@@ -77,7 +77,7 @@ class AssetController extends Controller
             'brand_id'=>'required',
         ]);
 
-        $inputValue = $request->all();
+        //$inputValue = $request->all();
         //Very important, in order for checkbox values to passed to 
         //the controller successfully, both id and name must be specified in blade
 
@@ -88,22 +88,15 @@ class AssetController extends Controller
         $asset->asset = $request->asset;
         $asset->note = $request->note;
         $asset->has_tag = $request->has('has_tag');
-
-        //$test = ($request->has('has_tag'));
-        //dd($request->has('has_tag'));
-        //dd($test);
-        //$asset->input['has_tag'] = true;
-
-        //if( empty($request->has('has_tag')) ){
-       //     $asset->has_tag = true;//...
-       // }
-        //else{
-       //     $asset->has_tag = false;//..
-       // }
-
+        //$data = $request->all();
+        //dd($data);
+        $image = $request->file('image');
+        //dd($image);
+        $image_name = $request->image->getClientOriginalName();
+        $asset->image = $image_name; 
+        //dd($image );
+        $image->move(public_path('images'), $image_name);
         $asset->create_user = Auth::user()->id;
-       // dd($inputValue);
-
         //var_dump($inputValue);
         //die();
        // echo '--that is today!';

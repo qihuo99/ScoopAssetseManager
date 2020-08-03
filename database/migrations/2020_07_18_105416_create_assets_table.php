@@ -19,6 +19,7 @@ class CreateAssetsTable extends Migration
             $table->text('note')->nullable();
             $table->boolean('has_tag')->default(false);  //set default to false to has_tag field
             $table->timestamps();
+            $table->string('image')->nullable(); //for blob
             $table->bigInteger('brand_id')->unsigned()->nullable();
             $table->bigInteger('sublocation_id')->unsigned()->nullable();
             $table->bigInteger('subcategory_id')->unsigned()->nullable();

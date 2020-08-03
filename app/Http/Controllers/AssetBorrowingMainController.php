@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Asset;
 use App\AssetBorrowingMain;
-//use Datatables;
 use Yajra\Datatables\Datatables;
 
 class AssetBorrowingMainController extends Controller
