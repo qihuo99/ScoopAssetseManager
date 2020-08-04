@@ -56,21 +56,29 @@ class AssetBorrowingMainController extends Controller
     function getdataforindexpage()
     {
         //$assets = Asset::select('id','asset','brand_id','sublocation_id','subcategory_id','note');
-        $data = AssetBorrowingMain::select('id','asset_id_selected','note', 'created_at');
+        $data = AssetBorrowingMain::select('id','asset_id_selected','note', 'created_at', 'create_user');
         //$data  = AssetBorrowingMain::all();
         return Datatables::of($data)
-            ->addColumn('action', function($data){
+            ->addColumn('view', function($data){
+                $button = '<button 
+                                type="button" 
+                                name="view" 
+                                id="'.$data->id.'"
+                                class="view btn btn-primary btn-mini">View</button>';
+                    //$button .= '&nbsp;&nbsp';
+                    //$button .= '<button type="button" name="delete" id="'.$data->id.'"
+                    //class="delete btn btn-danger btn-mini">Delete</button>';
+                    return $button;
+                })
+            ->addColumn('edit', function($data){
                 $button = '<button 
                                 type="button" 
                                 name="edit" 
                                 id="'.$data->id.'"
                                 class="edit btn btn-primary btn-mini">Edit</button>';
-                    //$button .= '&nbsp;&nbsp';
-                    //$button .= '<button type="button" name="delete" id="'.$data->id.'"
-                    //class="delete btn btn-danger btn-mini">Delete</button>';
-            return $button;
-        })
-            ->rawColumns(['action'])
+                    return $button;
+                })
+            ->rawColumns(['view', 'edit'])
             ->make(true);
     }
 
@@ -81,7 +89,6 @@ class AssetBorrowingMainController extends Controller
         $assets = $request->input('id');
 
         foreach($assets as $asset){
-            //orders::create($service);
             $assetdata .= $asset.',';
         }
 

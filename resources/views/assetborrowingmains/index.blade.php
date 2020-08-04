@@ -16,8 +16,10 @@
                     <th width="10%">ID</th>
                     <th width="25%">Asset ID Selected</th>
                     <th width="15%">Note</th>
-                    <th width="15%">Create Date</th>             
-                    <th width="30%">Action</th>
+                    <th width="15%">Create Date</th> 
+                    <th width="15%">Create User</th>                    
+                    <th width="30%">View</th>
+                    <th width="30%">Edit</th>
                 </tr>
             </thead>
         </table>
@@ -33,7 +35,9 @@
                 { "data": "asset_id_selected", name: 'asset_id_selected' },
                 { "data": "note", name: 'note' },
                 { "data": "created_at", name: 'created_at' },
-                { "data": "action", name: '    action     ', orderable: false  }
+                { "data": "create_user", name: 'create_user' },
+                { "data": "view", name: 'view', orderable: false  },
+                { "data": "edit", name: 'edit', orderable: false  }
             ]
         });
     });
