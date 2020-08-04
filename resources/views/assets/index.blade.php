@@ -45,7 +45,7 @@
                     <td><a href="{{ route('assets.edit', $asset->id) }}" class="btn btn-primary m-2">Edit</a></td>
                     <td>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary m-2" data-toggle="modal" data-target="#exampleModalCenter{{ $asset->id }}">
+                        <button type="button" class="btn btn-danger m-2" data-toggle="modal" data-target="#exampleModalCenter{{ $asset->id }}">
                         Delete
                         </button>
                         <!-- Modal -->

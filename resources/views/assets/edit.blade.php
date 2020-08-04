@@ -66,10 +66,18 @@
                     </select> 
                 </div>
             </div>
-            <div class="form-group">
-                <label for="note">More Information (Note): </label>
-                <textarea class="form-control" name="note" id="note" rows="4">{{ $asset->note }}</textarea>
-            </div>
+            <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label class="col-md-4 text-right">Select Profile Image</label>
+                        <div>
+                            <input type="file" name="image" /><img src="{{ URL::to('/') }}/images/{{ $asset->image }}" class="img-thumbnail" width="75" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="note">More Information (Note): </label>
+                        <textarea class="form-control" name="note" id="note" rows="4"></textarea>
+                    </div>
+                </div>
             <input type="submit" class="" value="Update" />
         </form>
     </div> 

@@ -37,11 +37,12 @@ Route::group(['middleware' => ['web']], function() {
     Route::get('AssetBorrowing/getdataforcreatnew', 'AssetBorrowingMainController@getdataforcreatnew')->name('AssetBorrowing.getdataforcreatnew');
 
     Route::get('AssetBorrowing/create', 'AssetBorrowingMainController@create')->name('AssetBorrowing.create');
+    Route::get('AssetBorrowing/masscreate', 'AssetBorrowingMainController@masscreate')->name('AssetBorrowing.masscreate');
 
    // Route::post('ajaxdata/postdata', 'AjaxdataController@postdata')->name('ajaxdata.postdata');
     
    // Route::get('ajaxdata/fetchdata', 'AjaxdataController@fetchdata')->name('ajaxdata.fetchdata');
   //  Route::get('ajaxdata/removedata', 'AjaxdataController@removedata')->name('ajaxdata.removedata');
     //Route::get('ajaxdata/massremove', 'AjaxdataController@massremove')->name('ajaxdata.massremove');
-   // Route::get('ajaxdata/masscreate', 'AjaxdataController@masscreate')->name('ajaxdata.masscreate');
+   // 
 });

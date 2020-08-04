@@ -40,6 +40,48 @@
                 { "data":"checkbox", orderable:false, searchable:false}
             ]
         });
+
+        //bulk insert 
+        $(document).on('click', '#bulk_insert', function(){
+            var id = [];
+
+            if(confirm("Are you sure you want to insert all these datas?"))
+            {
+                $('.asset_checkbox:checked').each(function(){
+                    id.push($(this).val());
+                });
+
+                if(id.length > 0)
+                {
+                    alert(id);
+                    console.log('id checkbox values = ' + id);
+ 
+                    $.ajax({
+                        url:"{{ route('AssetBorrowing.masscreate')}}",
+                        method:"get",
+                        data:{id:id},
+                        success:function(response)
+                        {
+                            alert(response);
+                            //console.log(response); 
+                            
+                            $('#asset_borrowing_table').DataTable().ajax.reload();
+                        }
+                    });
+
+                }
+                else
+                {
+                    alert("Please select at least one checkbox");
+                }
+            }
+
+        }); 
+
+
+
+
+
     });
     </script>
 

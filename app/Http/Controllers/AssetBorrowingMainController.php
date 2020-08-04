@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Asset;
 use App\AssetBorrowingMain;
+use App\AssetBorrowingDetail;
 use Yajra\Datatables\Datatables;
 
 class AssetBorrowingMainController extends Controller
@@ -31,29 +32,14 @@ class AssetBorrowingMainController extends Controller
                     ->rawColumns(['action'])
                     ->make(true);
         }
-
-
         return view('assetborrowingmains.index');
-        //return view('assetborrowingmains.index', compact('data'));
-        //$data = Asset::latest()->paginate(8);
-
-        //$data = DB::table('assets')
-        //->join('brands', 'brands.id', '=', 'assets.brand_id')
-        //->join('sublocations', 'sublocations.id', '=', 'assets.sublocation_id')
-       // ->join('subcategories', 'subcategories.id', '=', 'assets.subcategory_id')
-       // ->select('assets.id','brands.brand', 'sublocations.mainlocation_sublocation', 'subcategories.maincategory_subcategory','assets.asset', 'assets.note' )
-       // //->get()
-       // ->paginate(6);
-
-        //return view('assetborrowingmains.index', compact('data'))
        // ->with('i', (request()->input('page', 1) - 1) * 6);
         //return view('assetborrowingmains.index');  
-        //127.0.0.1:8000/assetborrowingmains  ==> this is the localhost url
+        //127.0.0.1:8000/AssetBorrowing  ==> this is the localhost url
     }
 
     function getdataforcreatnew()
     {
-        
         $data = DB::table('assets')
                 ->join('brands', 'brands.id', '=', 'assets.brand_id')
                 ->join('sublocations', 'sublocations.id', '=', 'assets.sublocation_id')
@@ -88,6 +74,51 @@ class AssetBorrowingMainController extends Controller
             ->make(true);
     }
 
+    function masscreate(Request $request)
+    {
+        $success_output = '';
+        $assetdata = '';
+        $assets = $request->input('id');
+
+        foreach($assets as $asset){
+            //orders::create($service);
+            $assetdata .= $asset.',';
+        }
+
+        $assetdata = substr($assetdata, 0, strlen($assetdata)-1);
+        echo '$studata = '.$assetdata; //remove the very last comma
+
+        $assetborrowingmain = new AssetBorrowingMain([
+            'asset_id_selected'    => $assetdata,
+            'note'    => 'asset selected = '.$assetdata
+        ]);
+        
+        if($assetborrowingmain->save())
+        {
+            $insertedId = $assetborrowingmain->id;  //get back the newly inserted id
+
+            //$assetborrowindetail = new AssetBorrowingDetail([
+            //    'asset_borrowing_main_id'    => $insertedId,
+            //    'asset_id'   => $assetdata,
+            //     'note'    => 'save in details'
+            // ]);
+            //$assetborrowindetail->save();
+
+           $assetborrowingdetail = new AssetBorrowingDetail;
+            foreach ($assets as $asset) {
+                AssetBorrowingDetail::create([
+                    'asset_borrowing_main_id' => $insertedId,
+                    'asset_id' =>$asset,
+                    'note' =>'student-curriculum selected = '.$asset
+                ]);
+            }
+    
+            echo 'Multiple Data Saved into Asset Borrowing Main = '.$insertedId;
+            $success_output = '<div class="alert alert-success">Asset Borrowing Main & Detail Inserted</div>';
+        }
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -119,8 +150,6 @@ class AssetBorrowingMainController extends Controller
     public function show($id)
     {
         //
-       
-
     }
 
     /**
